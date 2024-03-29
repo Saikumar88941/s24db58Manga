@@ -1,0 +1,17 @@
+
+extends layout
+
+block content
+  h1= title
+  - var results = [{style: "Abstract", material : "Marble", height: 50},{style: "Realistic", material: "Bronze", height: 30},{style: "Modern", material : "Wood", height  : 70}]
+
+  .container-fluid
+    .row
+      each f,index in results 
+        .col-sm-2(onclick=`buy(${index})`)
+          | #{f.style}, #{f.material}, #{f.height}
+          
+  script.
+    function buy(index) {
+      alert(`Your chosen Sculptures: ${index+1}`);
+    }
