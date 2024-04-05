@@ -1,3 +1,4 @@
+ 
 var Sculptures = require('../models/Sculptures');
 // List of all Sculptures
 exports.Sculptures_list = function(req, res) {
@@ -88,4 +89,33 @@ exports.Sculptures_create_post = async function(req, res) {
     }
     };
    
- 
+ // for a specific Sculptures.
+// exports.Sculptures_detail = async function(req, res) {
+//     console.log("detail" + req.params.id)
+//     try {
+//     result = await Sculptures.findById( req.params.id)
+//     res.send(result)
+//     } catch (error) {
+//     res.status(500)
+//     res.send(`{"error": document for id ${req.params.id} not found`);
+//     }
+//     };
+exports.Sculptures_update_put = async function(req, res) {
+    console.log(`update on id ${req.params.id} with body
+    ${JSON.stringify(req.body)}`)
+    try {
+    let toUpdate = await Sculptures.findById( req.params.id)
+    // Do updates of properties
+    if(req.body.Sculptures_type)
+    toUpdate.Sculptures_type = req.body.Sculptures_type;
+    if(req.body.cost) toUpdate.cost = req.body.cost;
+    if(req.body.size) toUpdate.size = req.body.size;
+    let result = await toUpdate.save();
+    console.log("Sucess " + result)
+    res.send(result)
+    } catch (err) {
+    res.status(500)
+    res.send(`{"error": ${err}: Update for id ${req.params.id}
+    failed`);
+    }
+    };
