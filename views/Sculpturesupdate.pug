@@ -1,0 +1,44 @@
+extends layout
+
+block content
+    h1= title
+
+    if (toShow == null)
+        h2 No instance to update
+    else
+        - let Sculpturesid = toShow._id
+        - let Sculpture_style = toShow.Sculptures_style
+        - let Sculpture_material = toShow.Sculptures_material
+        - let Sculpture_height = toShow.Sculptures_height
+        div.row(class='mb-2')
+            div.mr-1 ID is
+                div #{Sculpturesid}
+                - let actionid = "/resource/Sculptures/" + Sculpturesid
+                form(id='Sculpturesform', action=actionid, method="POST")
+                    div.Sculpturesform-group
+                        label.SculptureAttr(for='Sculpture_style') Sculptures style 
+                        input#Sculptures_style(type='text' name='Sculpture_style', value=Sculpture_style)
+                    div.Sculpturesform-group
+                        label.SculptureAttr(for='Sculpture_material') Sculptures Material
+                        input#Sculptures_material(type='text' name='Sculpture_material', value=Sculpture_material)
+                    div.Sculpturesform-group
+                        label.SculptureAttr(for='Sculpture_height') Sculptures height
+                        input#Sculptures_height(type='number' name='Sculpture_height', value=Sculpture_height)
+                    input(type="submit")
+    script.
+        document.forms['Sculpturesform'].addEventListener('submit', (event) => {
+            event.preventDefault();
+            // TODO do something here to show user that form is being submitted
+            fetch(event.target.action, {
+                method: 'PUT',
+                body: new URLSearchParams(new FormData(event.target)) // event.target is the form
+            }).then((resp) => {
+                return resp.text(); // or resp.text() or whatever the server sends
+            }).then((body) => {
+                alert("Update succeeded");
+                // TODO handle body
+            }).catch((error) => {
+                // TODO handle error
+                alert("Update failed " + error);
+            });
+        });

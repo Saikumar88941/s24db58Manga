@@ -1,0 +1,50 @@
+extends layout
+block content
+  h1= title
+  if (toShow == null)
+    h2 No instance to delete
+  else
+    - let Sculpturesid = toShow._id
+    - let Sculptures_style = toShow.Sculptures_style
+    - let Sculptures_material = toShow.Sculptures_material
+    - let Sculptures_height = toShow.Sculptures_height
+    - let actionid = "/resource/Sculptures/" + Sculpturesid
+    script let actionid = "#{actionid}"
+    div
+      div.row
+        div(class='SculpturesAttr mr-3') Sculptures ID is:
+        div #{Sculpturesid}
+      div.row
+        div(class='SculpturesAttr mr-3') Sculptures style is:
+        div #{Sculptures_style}
+      div.row
+        div(class='SculpturesAttr mr-3') Sculptures material is:
+        div #{Sculptures_material}
+      div.row
+        div(class='SculpturesAttr mr-3') Sculptures height is:
+        div #{Sculptures_height}
+      button(class="btn btn-danger m-2" onclick="deleteOnid()") Delete
+      button(class="btn btn-secondary m-2" onclick="cancel()") Cancel
+    script.
+      function cancel() {
+        // Go back to the home page for the Sculptures collection
+        window.location.href='/Sculptures'
+      }
+    script.
+      function deleteOnid() {
+        console.log("starting delete")
+        // delete first
+        fetch(actionid, {
+          method: 'DELETE' // Don't need a body for the delete
+        }).then((resp) => {
+          return resp.text(); // or resp.text() or whatever the server sends
+        }).then((body) => {
+          alert("Delete succeded")
+          window.location.href='/Sculptures'
+          // TODO handle body
+        }).catch((error) => {
+          // TODO handle error
+          alert("Delete failed " + error )
+        });
+      }
+ 

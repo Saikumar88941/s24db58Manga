@@ -1,0 +1,41 @@
+extends layout
+block content
+  h1= title
+
+  // styles.css is typically linked in the <head> section of your layout file, not directly in the content block.
+  // However, if you want to include it here for some reason, you can use a <style> tag.
+  style.
+    #SculpturesForm {
+        background-color: red ; /* Background color for the form */
+        padding: 20px; /* Add padding for better appearance */
+        border-radius: 10px; /* Optional: Add border radius for rounded corners */
+    }
+
+  form(id='SculpturesForm', action="/resource/Sculptures", method="POST")
+    div.form-group
+      label.SculpturesAttr(for='Sculptures_style') Sculptures style
+      input#Sculptures_style(type='text', name='Sculptures_style')
+    div.form-group
+      label.SculpturesAttr(for='Sculptures_material') Sculptures material
+      input#Sculptures_material(type='text', name='Sculptures_material')
+    div.form-group
+      label.SculpturesAttr(for='Sculptures_height') Sculptures height
+      input#Sculptures_height(type='number', name='Sculptures_height')
+    input(type="submit")
+  script.
+    document.forms['SculpturesForm'].addEventListener('submit', (event) => {
+      event.preventDefault();
+      // TODO do something here to show user that form is being submitted
+      fetch(event.target.action, {
+        method: 'POST',
+        body: new URLSearchParams(new FormData(event.target)) // event.target is the form
+      }).then((resp) => {
+        return resp.json(); // or resp.text() or whatever the server sends
+      }).then((body) => {
+        alert("Save succeeded")
+        // TODO handle body
+      }).catch((error) => {
+        // TODO handle error
+        alert("Save failed " + error)
+      });
+    });

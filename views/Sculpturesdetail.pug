@@ -1,0 +1,25 @@
+extends layout
+
+block content
+  h1= title
+      if (toShow == null)
+        h2 No instance to delete
+    else
+
+  - let Sculpturesid = toShow._id
+  - let Sculptures_style = toShow.Sculptures_style
+  - let Sculptures_material = toShow.Sculptures_material
+  - let Sculptures_height = toShow.Sculptures_height
+  div
+    div.row
+      div.SculpturesAttr.mr-3 Sculptures ID is:
+      div #{Sculpturesid}
+    div.row
+      div.SculpturesAttr.mr-3 Sculptures Type is:
+      div #{Sculptures_style}
+    div.row
+      div.SculpturesAttr.mr-3 Sculptures Size is:
+      div #{Sculptures_height}
+    div.row
+      div.SculpturesAttr.mr-3 Sculptures Cost is:
+      div #{Sculptures_material}
