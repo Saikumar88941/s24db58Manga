@@ -90,7 +90,7 @@ exports.Sculptures_create_post = async function (req, res) {
     // and require that it be a json object
     // {"Sculptures_type":"goat", "cost":12, "size":"large"}
     document.Sculptures_style = req.body.Sculptures_style;
-    document.Sculptures_material = req.body.Sculptures_author;
+    document.Sculptures_material = req.body.Sculptures_material;
     document.Sculptures_height = req.body.Sculptures_height;
     try {
         let result = await document.save();
