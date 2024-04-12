@@ -1,25 +1,14 @@
 extends layout
- 
+
 block content
   h1= title
- 
-  div.container-fluid
-    div.row
-      -
-        let Sculptures=results
-       
-      each Sculptures,index in results
-        .col-sm-2
-        div.col-sm-2(onclick=`buy(${index})`)
-       
-          p style: #{Sculptures.Sculptures_style}
-          p material : #{Sculptures.Sculptures_material}
-          p height: #{Sculptures.Sculptures_height.toFixed(2)}
- 
-  a(href="/") Back to index
- 
-    script.
-        function buy(index) {
-            alert(`You purchased item ${index}`);
-        }
- 
+  - let items = results;
+  div(class="container-fluid")
+  div(class="row m-1")
+    each item in items
+      - let destination = `dispatch(\"/Sculptures/update?id=${item._id}\")`
+      div(class="row-sm-2", class="m-1") Item #{item.Sculptures_style}(#{item.Sculptures_material}) is #{item.Sculptures_height}
+      button.btn( class="btn-primary ml-1", onclick= destination) Update
+  script.
+    function dispatch(path){
+      window.location.href=path}

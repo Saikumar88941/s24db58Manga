@@ -1,6 +1,10 @@
 extends layout
 block content
   h1= title
+      if (toShow == null)
+        h2 No instance to delete
+    else
+
   if (toShow == null)
     h2 No instance to delete
   else

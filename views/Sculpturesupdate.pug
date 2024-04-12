@@ -25,6 +25,8 @@ block content
                         label.SculptureAttr(for='Sculpture_height') Sculptures height
                         input#Sculptures_height(type='number' name='Sculpture_height', value=Sculpture_height)
                     input(type="submit")
+                  
+
     script.
         document.forms['Sculpturesform'].addEventListener('submit', (event) => {
             event.preventDefault();

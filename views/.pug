@@ -1,0 +1,14 @@
+extends layout
+
+block content
+  h1= title
+  - let items = results;
+  div(class="container-fluid")
+    div(class="row m-1")
+      each item in items
+        - let destination = 
+        div(class="row-sm-2 m-1") Item #{item.Sculptures_style}(#{item.Sculptures_material}) is #{item.Sculptures_height}
+        button.btn( class="btn-primary ml-1", onclick= destination) Update
+  script.
+    function dispatch(path){
+      window.location.href = path;}
