@@ -2,13 +2,30 @@ extends layout
 
 block content
   h1= title
+  p Welcome to #{title}
+
+  - let create = `dispatch(\"/Sculptures/create\")`
+  button.btn(class="btn-primary ml-1", onclick= create) Create 
+
   - let items = results;
+
   div(class="container-fluid")
-  div(class="row m-1")
-    each item in items
-      - let destination = `dispatch(\"/Sculptures/update?id=${item._id}\")`
-      div(class="row-sm-2", class="m-1") Item #{item.Sculptures_style}(#{item.Sculptures_material}) is #{item.Sculptures_height}
-      button.btn( class="btn-primary ml-1", onclick= destination) Update
+    div(class="row m-1")
+      each item, index in results
+        - let destination = `dispatch(\"/Sculptures/update?id=${item._id}\")`
+        - let detail  = `dispatch(\"/Sculptures/detail?id=${item._id}\")`
+        - let remove = `dispatch(\"/Sculptures/delete?id=${item._id}\")`
+        div(class="row-sm-2")
+          ul 
+            li #{item.Sculptures_style}
+            li #{item.Sculptures_material}
+            li #{item.Sculptures_height}
+          button.btn( class="btn-primary ml-1", onclick= destination) Update
+          button.btn( class="btn-primary ml-1", onclick= detail) Detail 
+          button.btn( class="btn-primary ml-1", onclick= remove) Delete 
+      
+
   script.
     function dispatch(path){
-      window.location.href=path}
+      window.location.href=path
+    }

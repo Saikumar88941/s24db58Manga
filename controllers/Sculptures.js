@@ -175,19 +175,21 @@ exports.Sculptures_update_Page = async function (req, res) {
 };
 
 // Handle a delete one view with id from query
-exports.Sculptures_delete_Page = async function(req, res) {
+exports.Sculptures_delete_Page = async function (req, res) {
     console.log("Delete view for id " + req.query.id)
-    try{
-    result = await Sculptures.findById(req.query.id)
-    res.render('Sculpturesdelete', { title: 'Sculptures Delete', toShow:
-    result });
+    try {
+        result = await Sculptures.findById(req.query.id)
+        res.render('Sculpturesdelete', {
+            title: 'Sculptures Delete', toShow:
+                result
+        });
     }
-    catch(err){
-    res.status(500)
-    res.send(`{'error': '${err}'}`);
+    catch (err) {
+        res.status(500)
+        res.send(`{'error': '${err}'}`);
     }
-    };
+};
 
-    
+
 
 
